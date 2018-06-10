@@ -1,20 +1,169 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+        
+        <div class="well well1">
+            <div class="row">
+                <p id="title" align="center">Stock Market Search</p>
+            </div>
+            <div class="row">
+                
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <p id="label" for="input">Enter Stock Ticker Symbol: <span id="star">*</span></p>
+                    </div>
+                    
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                          
+                        <form  action="" method="post">
+                                
+                                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" class="form-control" id="input" name="input" [(ngModel)]="in_value" placeholder="eg:AAPL" (keyup)="onKey($event)" > 
+                                 <p>{{text}}</p> 
+                                
+                                
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let stock of data" [value]="stock.Symbol">    
+                                                <span>{{ stock.Symbol }}</span>&nbsp;-&nbsp;<span>{{stock.Name}}</span>&nbsp;<span>({{stock.Exchange}})</span> 
+                                           </mat-option>
+                                       </mat-autocomplete>    
+                                  
+                            
+                        </form>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <button type="submit" id="submit" [disabled]="valid" class="btn btn-primary" (click)="onClick()"><span class="glyphicon glyphicon-search"></span> Get Quote</button>
+                        <button type="reset" class="btn btn-default" (click)="onClear()"><span class="glyphicon glyphicon-refresh"></span> Clear</button>
+                    </div>
+                
+            </div>
+        </div>
+        <hr style="color:white; width:92%; margin:auto">
+        <slide-tool class="pane" [activePane]="visible ? 'left' : 'right'">
+                <div left>
+                   
+                        <div class="well well2">
+                            <div class="fav_list">
+                                <div class="panel panel-default">
+                                            <div class="panel-heading clearfix">
+                                              <h4 class="panel-title pull-left">Favorite List  </h4>
+                                                <div class="pull-right">
+                                                <span id="textauto">Automatic Refrensh:</span>&nbsp;&nbsp;<input id="auto_refresh" type="checkbox" (click)="autofresh()">
+                                                &nbsp;&nbsp;<button type="button" class="btn btn-default" (click)="refresh()"><span class=" glyphicon glyphicon-refresh"></span></button>
+                                                <button type="button" [disabled]="rightabled" class="btn btn-default" (click)="slide()" ><span class=" glyphicon glyphicon-chevron-right"></span></button>
+                                                </div>    
+                                            </div>
+                                            <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-5 col-xs-12">
+                                                        <span class="text1"><b>Sort By&nbsp;&nbsp;&nbsp;&nbsp;</b></span> 
+                                                        <select class="form-control" (change)="sort($event)">
+                                                                <option>Default</option>
+                                                                <option>Symbol</option>
+                                                                <option>Price</option>
+                                                                <option>Change</option>
+                                                                <option>Change Percent</option>
+                                                                <option>Volume</option>
+                                                        </select>
+                                                        
+                                                    </div>
+                                                <div class="col-md-5 col-xs-12">
+                                                        <span class="text1"><b>Order&nbsp;&nbsp;&nbsp;&nbsp;</b></span>  
+                                                            <select [disabled]="orderclass" id="selectorder" class="form-control" (change)="sortorder($event)">
+                                                                    <option >Ascending</option>
+                                                                    <option >Descending</option>
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-md-2 col-xs-0"></div>
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-md-12 cd-xs-12">
+                                                <div id="table">
+                                                    <table class="table table-striped">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Symbol</th>
+                                                                <th>Stcok Price</th>
+                                                                <th>Change (Change Percent)</th>
+                                                                <th>Volume</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody *ngIf="flag1show">
+                                                            <tr  *ngFor="let item of items">
+                                                                <th><a id="{{item['sym']}}" (click)="link($event)">{{item['sym']}}</a></th>
+                                                                <td>{{item['pri']}}</td>
+                                                                <td  [style.color]="item['color']">{{item['cg']}}({{item['cgp']}})<img src="{{item['picsrc']}}" width="15px" height="15px"></td>
+                                                                <td>{{item['vol']}}</td>
+                                                                <td><button id="{{item['sym']}}" class="btn btn-default" (click)="delete($event)" ><span id="{{item['sym']}}" (click)="delete($event)" class="glyphicon glyphicon-trash"></span></button></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                                    </div>
+                                </div>
+                              </div>
+                           </div>
+                    
+                </div>
+                <div right>
+
+                        <div class="well well2">
+                                <div class="stock-detail">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading clearfix">
+                                      <div class="pull-left">
+                                        <button type="button" class="btn btn-default" (click)="slide()">
+                                          <span class=" glyphicon glyphicon-chevron-left"></span>
+                                        </button>
+                                      </div>
+                                      <h4 align="center">Stock Details</h4>
+                              
+                                    </div>
+                                    <div class="panel-body">
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <ul class="nav nav-pills">
+                                            <li class="active">
+                                              <a id="nav1" class="nav-link active" href="#currstock" data-toggle="tab">
+                                                <span class="glyphicon glyphicon-dashboard"></span>Current Stock</a>
+                                            </li>
+                                            <li class="nav-item">
+                                              <a  id="nav2" class="nav-link" href="#hischarts" data-toggle="tab">
+                                                <span class="glyphicon glyphicon-stats"></span>Historical Charts</a>
+                                            </li>
+                                            <li class="nav-item">
+                                              <a  id="nav3" class="nav-link" href="#news" data-toggle="tab">
+                                                <span class="glyphicon glyphicon-link"></span>News Feeds</a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                              
+                                      </div>
+                                      <hr style="color:rgb(241,241,241); width:98%;">
+                                      <div class="row">
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade in active" id="currstock">
+                                            <div class="col-12">
+                                            <current-stock [starflag]="starflag" [clear]="clear" (notify)="onNotify($event)" [err]="err" [flag]="flag" [stockdata]="stockdata" [stockdata_sma]="stockdata_sma" [stockdata_ema]="stockdata_ema" [stockdata_rsi]="stockdata_rsi" [stockdata_cci]="stockdata_cci" [stockdata_adx]="stockdata_adx" [stockdata_stoch]="stockdata_stoch" [stockdata_bbands]="stockdata_bbands" [stockdata_macd]="stockdata_macd"  >
+                                            </current-stock>
+                                            </div>
+                                          </div>
+                                          <div class="tab-pane fade" id="hischarts">
+                                            
+                                            <!-- <app-hischarts  [err]="err" [flag]="flag" [hisdata]="hisdata" ></app-hischarts> -->
+                                            <app-histcharts  [err]="err" [flag]="flag" [hisdata] ="hisdata"></app-histcharts>
+                                            
+                                          </div>
+                                          <div class="tab-pane fade" id="news"><app-news [err]="err"  [flag]="flag" [newsdata]="newsdata"></app-news></div>
+                                        </div>
+                              
+                                      </div>
+                                    </div>
+                              
+                                  </div>
+                              
+                                </div>
+                              </div>
+                              
+                </div>
+       
+            </slide-tool>

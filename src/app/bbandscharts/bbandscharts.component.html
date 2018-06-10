@@ -1,0 +1,16 @@
+<div *ngIf="!err[7]; else errinfo">
+<div *ngIf = "flag[7]; else probar">
+    <div [chart]="chart" ></div>
+    </div>
+    </div>
+<ng-template #probar>
+    <div class="progress" style="margin:40% auto;">
+      <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="50" aria-valuemin="50"
+        aria-valuemax="100" style="width: 50%"></div>
+    </div>
+  </ng-template>
+  <ng-template #errinfo>
+      <div class="alert alert-danger" role="alert">
+        Error! Falied to get BBANDS data.
+       </div>
+    </ng-template>

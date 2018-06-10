@@ -1,0 +1,17 @@
+#stockinfo_table{
+    margin-top:2%;
+}
+.alert{
+    margin-top:30%; 
+}
+
+.glyphicon{
+    font-size:25px; 
+    background-color:white;
+ }
+.glyphicon-star {
+    color: yellow;
+ }
+ #btnstar{
+     background-color:white;
+ }

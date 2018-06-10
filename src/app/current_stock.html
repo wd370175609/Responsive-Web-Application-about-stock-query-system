@@ -1,0 +1,150 @@
+<div class="col-md-6 col-xs-12 ">
+  <div class="row">
+    <div class="col-md-12 clearfix">
+      <h5 class="pull-left">Stock Details</h5>
+      <div class="pull-right">
+        <button type="button" id="btnstar" [disabled]="btnclass"  class="btn btn-default" (click)="Onclick()">
+          <span  id="starlabel"  class="{{starclass}}"></span>
+        </button>
+        <button type="button" id="btnstar" [disabled]="btnclass" class="btn btn-default"  (click)="share()"><img src="http://cs-server.usc.edu:45678/hw/hw8/images/facebook.png" width="30px" height="30px">
+        </button>
+        
+      </div>
+    </div>
+    <div class="col-md-12" >
+      <div *ngIf="!err[0]; else errinfo">
+      <table class="table table-striped" id="stockinfo_table" *ngIf="flag[0]; else probar" >
+        <tbody>
+          <tr>
+            <td>
+              <b>Stock Ticker Symbol</b>
+            </td>
+            <td>{{symbol}}</td>
+          </tr>
+          <tr>
+            <td>
+              <b>Last Price</b>
+            </td>
+            <td>{{lastprice}}</td>
+          </tr>
+          <tr *ngIf="col=='red'">
+            <td>
+              <b>Change (Change Percent)</b>
+            </td>
+            <td style="color:red">{{change}}({{changepercent}}%)
+              <img src="{{picsrc}}" width="15px" height="15px">
+            </td>
+          </tr>
+          <tr *ngIf="col=='green'">
+            <td>
+              <b>Change (Change Percent)</b>
+            </td>
+            <td style="color:green">{{change}}({{changepercent}}%)
+              <img src="{{picsrc}}" width="15px" height="15px">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <b>Timestamp</b>
+            </td>
+            <td>{{date}}</td>
+          </tr>
+          <tr>
+            <td>
+              <b>Open</b>
+            </td>
+            <td>{{open}}</td>
+          </tr>
+          <tr>
+            <td>
+              <b>Close</b>
+            </td>
+            <td>{{close}}</td>
+          </tr>
+          <tr>
+            <td>
+              <b>Day's Range</b>
+            </td>
+            <td>{{low}} - {{high}}</td>
+          </tr>
+          <tr>
+            <td>
+              <b>Volume</b>
+            </td>
+            <td>{{volume}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-6 col-xs-12">
+  <ul id="cho" class="nav nav-tabs">
+    <li class="nav-item active">
+      <a class="nav-link" href="#price" data-toggle="tab">Price</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#sma" data-toggle="tab">SMA</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#ema" data-toggle="tab">EMA</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="#stoch" data-toggle="tab">STOCH</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#rsi" data-toggle="tab">RSI</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#adx" data-toggle="tab">ADX</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="#cci" data-toggle="tab">CCI</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#bbands" data-toggle="tab">BBANDS</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#macd" data-toggle="tab">MACD</a>
+    </li>
+
+  </ul>
+
+ 
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="price">
+          <app-pricecharts  (sendout)="getpricechart($event)" [err]="err" [flag]="flag" [stockdata]="stockdata"></app-pricecharts>
+        </div>
+        <div class="tab-pane fade" id="sma"><app-smacharts (sendout)="getsmachart($event)" [err]="err" [flag]="flag" [stockdata_sma]="stockdata_sma"></app-smacharts>
+        </div>
+        <div class="tab-pane fade" id="ema"><app-emacharts (sendout)="getemachart($event)" [err]="err" [flag]="flag" [stockdata_ema]="stockdata_ema"></app-emacharts></div>
+        <div class="tab-pane fade" id="stoch"><app-stochcharts (sendout)="getstochchart($event)" [err]="err" [flag]="flag" [stockdata_stoch]="stockdata_stoch"></app-stochcharts></div>
+        <div class="tab-pane fade" id="rsi"><app-rsicharts (sendout)="getrsichart($event)" [err]="err"  [flag]="flag"[stockdata_rsi]="stockdata_rsi"></app-rsicharts></div>
+        <div class="tab-pane fade" id="adx"><app-adxcharts (sendout)="getadxchart($event)" [err]="err" [flag]="flag"[stockdata_adx]="stockdata_adx"></app-adxcharts></div>
+        <div class="tab-pane fade" id="cci"><app-ccicharts (sendout)="getccichart($event)" [err]="err" [flag]="flag" [stockdata_cci]="stockdata_cci"></app-ccicharts></div>
+        <div class="tab-pane fade" id="bbands"><app-bbandscharts (sendout)="getbbandschart($event)" [err]="err" [flag]="flag" [stockdata_bbands]="stockdata_bbands"></app-bbandscharts></div>
+        <div class="tab-pane fade" id="macd"><app-macdcharts (sendout)="getmacdchart($event)" [err]="err" [flag]="flag" [stockdata_macd]="stockdata_macd"></app-macdcharts></div>
+      </div>
+
+
+
+
+</div>
+
+
+
+<ng-template #probar>
+  <div class="progress" style="margin:40% auto;">
+    <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="50" aria-valuemin="50"
+      aria-valuemax="100" style="width: 50%"></div>
+  </div>
+</ng-template>
+<ng-template #errinfo>
+    <div class="alert alert-danger" role="alert">
+      Error! Falied to get current stock data.
+     </div>
+  </ng-template>

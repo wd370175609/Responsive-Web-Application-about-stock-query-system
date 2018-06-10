@@ -1,0 +1,74 @@
+<div class="col-md-12">
+  <div *ngIf="!err[10]; else errinfo">
+  <div *ngIf="flag[10]; else probar">
+    <div class="well">
+      <h4>
+        <a href="{{link[0]}}" target="_blank">{{title[0]}}</a>
+      </h4>
+      <h6>
+        <b>Author: {{author[0]}}</b>
+      </h6>
+      <h6>
+        <b>Date: {{pubdate[0]}}</b>
+      </h6>
+    </div>
+    <div class="well">
+      <h4>
+        <a href="{{link[1]}}" target="_blank">{{title[1]}}</a>
+      </h4>
+      <h6>
+        <b>Author: {{author[1]}}</b>
+      </h6>
+      <h6>
+        <b>Date: {{pubdate[1]}}</b>
+      </h6>
+    </div>
+    <div class="well">
+      <h4>
+        <a href="{{link[2]}}" target="_blank">{{title[2]}}</a>
+      </h4>
+      <h6>
+        <b>Author: {{author[2]}}</b>
+      </h6>
+      <h6>
+        <b>Date: {{pubdate[2]}}</b>
+      </h6>
+    </div>
+    <div class="well">
+      <h4>
+        <a href="{{link[3]}}" target="_blank">{{title[3]}}</a>
+      </h4>
+      <h6>
+        <b>Author: {{author[3]}}</b>
+      </h6>
+      <h6>
+        <b>Date: {{pubdate[3]}}</b>
+      </h6>
+    </div>
+    <div class="well">
+      <h4>
+        <a href="{{link[4]}}" target="_blank">{{title[4]}}</a>
+      </h4>
+      <h6>
+        <b>Author: {{author[4]}}</b>
+      </h6>
+      <h6>
+        <b>Date: {{pubdate[4]}}</b>
+      </h6>
+    </div>
+
+  </div>
+  </div>
+</div>
+
+<ng-template #probar>
+  <div class="progress" style="margin:40% auto;">
+    <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="50" aria-valuemin="50"
+      aria-valuemax="100" style="width: 50%"></div>
+  </div>
+</ng-template>
+<ng-template #errinfo>
+  <div class="alert alert-danger" role="alert">
+    Error! Falied to get news feed data.
+   </div>
+</ng-template>

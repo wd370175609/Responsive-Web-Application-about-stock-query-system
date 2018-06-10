@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background-image: url("http://cs-server.usc.edu:45678/hw/hw8/images/background.png");
+    z-index: 1;
+    min-width:360px;
+}
+.alert{
+    margin-top:20%; 
+}
+

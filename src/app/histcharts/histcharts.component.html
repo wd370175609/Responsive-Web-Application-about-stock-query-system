@@ -1,0 +1,21 @@
+
+<div class="col-md-12 col-xs-12"  >
+    <div *ngIf="!err[9]; else errinfo">
+      <div *ngIf = "flag[9]; else probar">
+        <div class="col-xs-12">
+        <chart id="hischart" type="StockChart" [options]="options" ></chart>
+        </div>
+        </div>
+      </div> 
+   </div>
+    <ng-template #probar>
+      <div class="progress" style="margin:40% auto;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="50" aria-valuemin="50"
+          aria-valuemax="100" style="width: 50%"></div>
+      </div>
+    </ng-template>
+    <ng-template #errinfo>
+        <div class="alert alert-danger" role="alert">
+          Error! Falied to get historical charts data.
+         </div>
+  </ng-template>
